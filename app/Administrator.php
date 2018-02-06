@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Administrator extends Authenticatable
@@ -11,9 +10,10 @@ class Administrator extends Authenticatable
 	protected $guard = 'administrator';
 	public $timestamps = false;
 	protected $primaryKey = 'email';
+	public $incrementing = false;
 
     protected $fillable = [
-        'email', 'first_name', 'last_name', 'password',
+        'email', 'first_name', 'last_name',
     ];
 
     protected $hidden = [

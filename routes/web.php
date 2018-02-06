@@ -15,6 +15,7 @@ Route::prefix('administrator')->group(function() {
 	Route::get('/prijava', 'Auth\AdministratorLoginController@login')->name('administrator.login');
 	Route::post('/prijava', 'Auth\AdministratorLoginController@loginSubmit')->name('administrator.login.submit');
 	Route::get('/profil', 'AdministratorController@profile')->name('administrator.profile');
+	Route::post('/profil/urejanje', 'AdministratorController@profileEdit')->name('administrator.profile.edit');
 	Route::get('/', 'AdministratorController@index')->name('administrator.index');
 });
 Route::prefix('prodajalec')->group(function() {
