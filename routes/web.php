@@ -36,6 +36,12 @@ Route::prefix('prodajalec')->group(function () {
             Route::get('/uredi/{id}', 'SellerController@customerEdit')->name('seller.customer.edit');
             Route::post('/uredi/{id}', 'SellerController@customerEditSubmit')->name('seller.customer.edit.submit');
     });
+    Route::prefix('izdelek')->group(function () {
+            Route::get('/dodaj', 'SellerController@itemAdd')->name('seller.item.add');
+            Route::post('/dodaj', 'SellerController@itemAddSubmit')->name('seller.item.add.submit');
+            Route::get('/uredi/{id}', 'SellerController@itemEdit')->name('seller.item.edit');
+            Route::post('/uredi/{id}', 'SellerController@itemEditSubmit')->name('seller.item.edit.submit');
+    });
     Route::get('/', 'SellerController@index')->name('seller.index');
 });
 
@@ -44,8 +50,9 @@ Route::prefix('stranka')->group(function () {
     Route::post('/prijava', 'Auth\CustomerLoginController@loginSubmit')->name('customer.login.submit');
     Route::get('/registracija', 'Auth\CustomerRegisterController@register')->name('customer.register');
     Route::post('/registracija', 'Auth\CustomerRegisterController@registerSubmit')->name('customer.register.submit');
-    Route::get('/aktivacija/{activation_code}', 'Auth\CustomerRegisterController@activate')->name('customer.activate');
+    Route::get('/aktivacija/{activation_code}', 'CustomerController@activate')->name('customer.activate');
     Route::get('/profil', 'CustomerController@profile')->name('customer.profile');
+    Route::post('/profil/urejanje', 'CustomerController@profileEdit')->name('customer.profile.edit');
     Route::get('/', 'CustomerController@index')->name('customer.index');
 });
 

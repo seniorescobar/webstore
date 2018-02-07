@@ -24,7 +24,7 @@ class CreateUsersTables extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('password');
-            $table->boolean('activated')->default(true);
+            $table->boolean('activated');
 
             $table->primary(['email']);
         });
@@ -37,8 +37,8 @@ class CreateUsersTables extends Migration
             $table->string('password');
             $table->string('home_address');
             $table->string('phone_number');
-            $table->string('activation_code');
-            $table->boolean('activated')->default(false);
+            $table->string('activation_code')->nullable();
+            $table->boolean('activated');
 
             $table->primary(['email']);
         });

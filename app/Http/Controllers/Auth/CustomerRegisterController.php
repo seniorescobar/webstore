@@ -49,15 +49,4 @@ class CustomerRegisterController extends Controller
         
         return redirect()->route('customer.profile');
     }
-    
-    public function activate($activation_code)
-    {
-        $customer = Customer::where('activation_code', $activation_code)->firstOrFail();
-        $customer->activated=1;
-        $customer->save();
-
-        Auth::guard('customer')->login($customer);
-
-        return redirect()->route('customer.profile');
-    }
 }

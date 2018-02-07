@@ -50,6 +50,24 @@
                    <a href="{{ route('seller.customer.add') }}" class="btn btn-primary btn-block">Dodaj</a> 
                 </div>
             </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Seznam izdelkov</div>
+                <div class="list-group">
+                @if (count($items) > 0)
+                    @foreach ($items as $item)
+                    <a href="{{ route('seller.item.edit', $item->id) }}" class="list-group-item">
+                        <span class="badge">{{ $item->price }} €</span>
+                        {{ $item->name }}
+                    </a>
+                    @endforeach
+                @else
+                    <div class="panel-body">Ni izdelkov.</div>
+                @endif
+                </div>
+                <div class="panel-footer">
+                   <a href="{{ route('seller.item.add') }}" class="btn btn-primary btn-block">Dodaj</a> 
+                </div>
+            </div>
         </div>
     </div>
 </div>

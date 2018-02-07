@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Seller;
 use App\Customer;
+use App\Item;
 use Auth;
 
 class SellerController extends Controller
@@ -23,8 +24,9 @@ class SellerController extends Controller
     {
         $profile = Auth::user();
         $customers = Customer::all();
+        $items = Item::all();
 
-        return view('seller.profile', ['profile' => $profile, 'customers' => $customers]);
+        return view('seller.profile', ['profile' => $profile, 'customers' => $customers, 'items' => $items]);
     }
     
     public function profileEdit(Request $request)
@@ -49,6 +51,37 @@ class SellerController extends Controller
 
         return redirect()->route('seller.profile');
     }
+
+    public function customerAdd()
+    {
+        return view('seller.customer.add');
+    }
+
+    public function customerAddSubmit(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'home_address' => 'required|string',
+            'phone_number' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        $customer = new Customer;
+        $customer->email = $request->email;
+        $customer->first_name = $request->first_name;
+        $customer->last_name = $request->last_name;
+        $customer->home_address = $request->home_address;
+        $customer->phone_number = $request->phone_number;
+        $customer->password = bcrypt($request->password);
+        $customer->activated=true;
+        $customer->activation_code=str_random(128);
+        $customer->save();
+
+        return redirect()->route('seller.profile');
+    }
+
     public function customerEdit($id)
     {
         $customer = Customer::find($id);
@@ -82,35 +115,48 @@ class SellerController extends Controller
         return redirect()->route('seller.profile');
     }
 
-    public function customerAdd()
+    public function itemAdd()
     {
-        return view('seller.customer.add');
+        return view('seller.item.add');
     }
 
-    public function customerAddSubmit(Request $request)
+    public function itemAddSubmit(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'home_address' => 'required|string',
-            'phone_number' => 'required|string',
-            'password' => 'required|string',
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|integer',
         ]);
 
-        $customer = new Customer;
-        $customer->email = $request->email;
-        $customer->first_name = $request->first_name;
-        $customer->last_name = $request->last_name;
-        $customer->home_address = $request->home_address;
-        $customer->phone_number = $request->phone_number;
-        $customer->password = bcrypt($request->password);
-        $customer->activated=false; // comment this line after you run the migration
-        $customer->activation_code=str_random(128);
-        $customer->save();
+        $item = new Item;
+        $item->name = $request->name;
+        $item->description = $request->description;
+        $item->price = $request->price;
+        $item->save();
 
-        //send email
+        return redirect()->route('seller.profile');
+    }
+
+    public function itemEdit($id)
+    {
+        $item = Item::find($id);
+        return view('seller.item.edit', ['item' => $item]);
+    }
+
+    public function itemEditSubmit(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|integer',
+        ]);
         
+        $item = Item::find($id);
+        $item->name = $request->name;
+        $item->description = $request->description;
+        $item->price = $request->price;
+        $item->save();
+
         return redirect()->route('seller.profile');
     }
 }

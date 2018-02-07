@@ -111,6 +111,6 @@ class AdministratorController extends Controller
         $seller->activated=true; // comment this line after you run the migration
         $seller->save();
         
-        return redirect()->route('administrator.seller.add');
+        return redirect()->route('administrator.profile');
     }
 }
