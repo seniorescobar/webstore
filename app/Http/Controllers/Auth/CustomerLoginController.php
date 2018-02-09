@@ -25,7 +25,7 @@ class CustomerLoginController extends Controller
             'password' => 'required|string',
         ]);
 
-        if (Auth::guard('customer')->attempt(['email' => $request->email, 'password' => $request->password, 'activated' => 1])) {
+        if (Auth::guard('customer')->attempt(['email' => $request->email, 'password' => $request->password, 'activated' => true])) {
             return redirect()->intended(route('customer.profile'));
         } else {
             return redirect()->back()->withInput($request->only('email', 'remember'));

@@ -44,7 +44,6 @@ class CustomerRegisterController extends Controller
         $customer->activation_code=str_random(128);
         $customer->save();
 
-        //send email
         Mail::to($customer->email)->send(new Verification(route('customer.activate', $customer->activation_code)));
         
         return redirect()->route('customer.profile');

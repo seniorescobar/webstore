@@ -5,18 +5,35 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Administrator;
 use App\Seller;
+use App\Customer;
 use Auth;
+use Hash;
 
 class AdministratorController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        $this->middleware('auth:administrator');
+        $this->middleware('auth:administrator', ['except' => ['login', 'loginSubmit']]);
+        $this->middleware('guest:administrator', ['only' => ['login', 'loginSubmit']]);
+    }
+
+    public function login()
+    {
+        return view('administrator.login');
+    }
+
+    public function loginSubmit(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+
+        if (Auth::guard('administrator')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect()->intended('administrator.profile');
+        } else {
+            return redirect()->back()->withInput($request->only('email'));
+        }
     }
 
     public function index()
@@ -24,17 +41,11 @@ class AdministratorController extends Controller
         return redirect()->route('administrator.profile');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function profile()
     {
         $profile = Auth::user();
-        $sellers = Seller::all();
 
-        return view('administrator.profile', ['profile' => $profile, 'sellers' => $sellers]);
+        return view('administrator.profile', ['profile' => $profile]);
     }
 
     public function profileEdit(Request $request)
@@ -58,6 +69,12 @@ class AdministratorController extends Controller
         $administrator->save();
 
         return redirect()->route('administrator.profile');
+    }
+
+    public function sellers()
+    {
+        $sellers = Seller::all();
+        return view('administrator.seller.index', ['sellers' => $sellers]);
     }
 
     public function sellerEdit($id)
@@ -86,7 +103,7 @@ class AdministratorController extends Controller
         $seller->activated = $request->activated ? 1 : 0;
         $seller->save();
 
-        return redirect()->route('administrator.seller.edit', ['id' => $seller->email]);
+        return redirect()->route('administrator.sellers');
     }
 
     public function sellerAdd()

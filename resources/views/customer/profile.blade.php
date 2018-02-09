@@ -3,7 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-4">
+            @component('customer.navbar')
+                @slot('active')
+                    profile
+                @endslot
+            @endcomponent
+        </div>
+        <div class="col-md-8">
             <div class="panel panel-primary">
                 <div class="panel-heading">Moj profil</div>
                 <div class="panel-body">

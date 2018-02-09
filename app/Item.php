@@ -12,16 +12,16 @@ class Item extends Model
     public $incrementing = true;
 
     protected $fillable = [
-        'name', 'description', 'price',
+        'name', 'description', 'price', 'activated',
     ];
 
-    public function images()
-    {
-        return $this->hasMany('App\Image');
-    }
-
-    public function ratings()
-    {
-        return $this->hasMany('App\Rating');
-    }
+    // public function images()
+    // {
+    //     return $this->hasMany('App\Image');
+    // }
+    //
+    // public function ratings()
+    // {
+    //     return $this->hasMany('App\Rating');
+    // }
 }

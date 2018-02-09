@@ -16,27 +16,28 @@ class CreateItemsTable extends Migration
         Schema::create('item', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->integer('price')->unsigned();
+            $table->boolean('activated');
         });
 
-        Schema::create('image', function (Blueprint $table) {
-            $table->string('filepath');
-            $table->integer('item_id')->unsigned();
+        // Schema::create('image', function (Blueprint $table) {
+        //     $table->string('filepath');
+        //     $table->integer('item_id')->unsigned();
+        //
+        //     $table->foreign('item_id')->references('id')->on('item');
+        //     $table->primary(['filepath']);
+        // });
 
-            $table->foreign('item_id')->references('id')->on('item');
-            $table->primary(['filepath']);
-        });
-
-        Schema::create('rating', function (Blueprint $table) {
-            $table->string('customer_email');
-            $table->integer('item_id')->unsigned();
-            $table->integer('rating')->unsigned();
-
-            $table->foreign('customer_email')->references('email')->on('customer');
-            $table->foreign('item_id')->references('id')->on('item');
-            $table->primary(['customer_email', 'item_id']);
-        });
+        // Schema::create('rating', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('customer_email');
+        //     $table->integer('item_id')->unsigned();
+        //     $table->integer('rating')->unsigned();
+        //
+        //     $table->foreign('customer_email')->references('email')->on('customer');
+        //     $table->foreign('item_id')->references('id')->on('item');
+        // });
     }
 
     /**
@@ -47,7 +48,7 @@ class CreateItemsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('item');
-        Schema::dropIfExists('image');
-        Schema::dropIfExists('rating');
+        // Schema::dropIfExists('image');
+        // Schema::dropIfExists('rating');
     }
 }

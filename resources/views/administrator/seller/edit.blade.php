@@ -33,6 +33,7 @@
                             {{ Form::checkbox('activated') }} Aktiven
                         </label>
                     </div> 
+
                     {{ Form::submit('Posodobi', ['class' => 'btn btn-primary btn-block']) }}
                     {{ Form::close() }}
                 </div>

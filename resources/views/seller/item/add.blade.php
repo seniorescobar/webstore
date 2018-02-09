@@ -8,7 +8,7 @@
                 <div class="panel-heading">Dodaj izdelek</div>
 
                 <div class="panel-body">
-                    {{ Form::open(['route' => 'seller.item.add', 'method' => 'POST']) }}
+                    {{ Form::open(['route' => 'seller.item.add', 'method' => 'POST', 'files' => true]) }}
                     <div class="form-group">
                         {!! Form::label('name', 'Ime') !!}
                         {!! Form::text('name', null, ['class' => 'form-control']) !!}
