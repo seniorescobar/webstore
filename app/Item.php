@@ -15,6 +15,14 @@ class Item extends Model
         'name', 'description', 'price', 'activated',
     ];
 
+    protected $hidden = ['id'];
+    protected $appends = ['url'];
+
+    public function getUrlAttribute()
+    {
+        return route('item.index', ['id' => $this->id]);
+    }
+
     // public function images()
     // {
     //     return $this->hasMany('App\Image');
