@@ -18,6 +18,6 @@ class ApiController extends Controller
 
     public function item($id)
     {
-        return Item::findOrFail($id)->first(['id', 'name', 'description', 'price'])->toJson();
+        return Item::find($id)->toJson();
     }
 }

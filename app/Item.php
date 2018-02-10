@@ -15,8 +15,8 @@ class Item extends Model
         'name', 'description', 'price', 'activated',
     ];
 
-    protected $hidden = ['id'];
-    protected $appends = ['url'];
+    // protected $hidden = ['id'];
+    // protected $appends = ['url'];
 
     public function getUrlAttribute()
     {
