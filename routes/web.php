@@ -82,7 +82,7 @@ Route::prefix('stranka')->group(function () {
 
 Route::prefix('izdelek')->group(function () {
     Route::get('/{id}', 'ItemController@index')->name('item.index');
-    // Route::get('/{id}/rate/{rating}', 'ItemController@rate')->name('item.rate');
+    Route::get('/{id}/rate/{rating}', 'ItemController@rate')->name('item.rate');
 });
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

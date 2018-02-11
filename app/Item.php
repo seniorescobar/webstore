@@ -28,8 +28,8 @@ class Item extends Model
     //     return $this->hasMany('App\Image');
     // }
     //
-    // public function ratings()
-    // {
-    //     return $this->hasMany('App\Rating');
-    // }
+    public function ratings()
+    {
+        return $this->hasMany('App\Rating');
+    }
 }

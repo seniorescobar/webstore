@@ -20,14 +20,16 @@ class ItemController extends Controller
         return view('item', ['item' => $item]);
     }
 
-    // public function rate($id, $rating)
-    // {
-    //     $customer = Auth::user();
-    //
-    //     $ratingModel = Rating::firstOrNew(['customer_email' => $customer->email, 'item_id' => $id]);
-    //     $ratingModel->rating = $rating;
-    //     $ratingModel->save();
-    //
-    //     return redirect()->back();
-    // }
+    public function rate($id, $rating)
+    {
+        $customer = Auth::user();
+
+        $ratingModel = Rating::firstOrNew(['customer_email' => $customer->email, 'item_id' => $id]);
+        $ratingModel->rating = $rating;
+        $ratingModel->save();
+
+        return response()->json([
+            'avgRating' => Item::find($id)->ratings->avg('rating'),
+        ]);
+    }
 }

@@ -29,15 +29,15 @@ class CreateItemsTable extends Migration
         //     $table->primary(['filepath']);
         // });
 
-        // Schema::create('rating', function (Blueprint $table) {
-        //     $table->increments('id');
-        //     $table->string('customer_email');
-        //     $table->integer('item_id')->unsigned();
-        //     $table->integer('rating')->unsigned();
-        //
-        //     $table->foreign('customer_email')->references('email')->on('customer');
-        //     $table->foreign('item_id')->references('id')->on('item');
-        // });
+        Schema::create('rating', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('customer_email');
+            $table->integer('item_id')->unsigned();
+            $table->integer('rating')->unsigned();
+
+            $table->foreign('customer_email')->references('email')->on('customer');
+            $table->foreign('item_id')->references('id')->on('item');
+        });
     }
 
     /**
@@ -49,6 +49,6 @@ class CreateItemsTable extends Migration
     {
         Schema::dropIfExists('item');
         // Schema::dropIfExists('image');
-        // Schema::dropIfExists('rating');
+        Schema::dropIfExists('rating');
     }
 }
