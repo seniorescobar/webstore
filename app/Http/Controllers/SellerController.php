@@ -13,6 +13,7 @@ class SellerController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('https');
         $this->middleware('auth:seller', ['except' => ['login', 'loginSubmit']]);
         $this->middleware('guest:seller', ['only' => ['login', 'loginSubmit']]);
     }

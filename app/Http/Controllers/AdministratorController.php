@@ -13,6 +13,7 @@ class AdministratorController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('https');
         $this->middleware('auth:administrator', ['except' => ['login', 'loginSubmit']]);
         $this->middleware('guest:administrator', ['only' => ['login', 'loginSubmit']]);
     }

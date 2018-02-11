@@ -14,6 +14,7 @@ class CustomerController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('https');
         $this->middleware('auth:customer', ['except' => ['register', 'registerSubmit', 'login', 'loginSubmit', 'activate']]);
         $this->middleware('guest:customer', ['only' => ['register', 'registerSubmit', 'login', 'loginSubmit', 'activate']]);
     }
