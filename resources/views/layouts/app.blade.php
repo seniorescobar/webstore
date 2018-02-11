@@ -32,24 +32,19 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        @guest
+                        @if (Auth::guard('administrator')->check())
+                            <li><a href="{{ route('administrator.profile') }}">{{ Auth::user()->first_name }}</a></li>
+                            <li><a href="{{ route('logout') }}">Odjava</a></li>
+                        @elseif (Auth::guard('seller')->check())
+                            <li><a href="{{ route('seller.profile') }}">{{ Auth::user()->first_name }}</a></li>
+                            <li><a href="{{ route('logout') }}">Odjava</a></li>
+                        @elseif (Auth::guard('customer')->check())
+                            <li><a href="{{ route('customer.profile') }}">{{ Auth::user()->first_name }}</a></li>
+                            <li><a href="{{ route('logout') }}">Odjava</a></li>
+                        @else
                             <li><a href="{{ route('customer.login') }}">Prijava</a></li>
                             <li><a href="{{ route('customer.register') }}">Registracija</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->first_name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ route('customer.profile') }}">Moj profil</a></li>
-                                    <li><a href="{{ route('shopping-cart.index') }}">Kosarica</a></li>
-                                    <li><a href="{{ route('customer.orders') }}">Moja narocila</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="{{ route('logout') }}">Odjava</a></li>
-                                </ul>
-                            </li>
-                        @endguest
+                        @endif
                     </ul>
                 </div>
             </div>
