@@ -3,15 +3,17 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            @foreach ($items as $item)
+        <div class="col-md-12">
             <div class="list-group">
+        @foreach ($items as $item)
+
+
                 <a href="{{ route('item.index', ['id' => $item->id]) }}" class="list-group-item">
-                    <h4 class="list-group-item-heading">{{ $item->name }} <span class="label label-default">{{ $item->price }} €</span></h4>
-                    <p class="list-group-item-text">{{ str_limit($item->description, 256) }}</p>
+                    <h4 class="list-group-item-heading">{{ $item->name }}</h4>
+                    <p class="list-group-item-text">{{ str_limit($item->description, 128) }}</p>
                 </a>
-            </div> 
             @endforeach
+            </div> 
         </div>
     </div>
 </div>
