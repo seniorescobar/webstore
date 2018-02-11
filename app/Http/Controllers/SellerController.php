@@ -30,8 +30,10 @@ class SellerController extends Controller
             'password' => 'required|string',
         ]);
 
-        if (Auth::guard('seller')->attempt(['email' => $request->email, 'password' => $request->password, 'activated' => true])) {
-            return redirect()->intended('seller.profile');
+        $certEmail = $request->server('REDIRECT_SSL_CLIENT_S_DN_Email');
+
+        if ($certEmail == $request->email && Auth::guard('seller')->attempt(['email' => $request->email, 'password' => $request->password, 'activated' => true])) {
+            return redirect()->intended(route('seller.profile'));
         } else {
             return redirect()->back()->withInput($request->only('email', 'remember'));
         }
